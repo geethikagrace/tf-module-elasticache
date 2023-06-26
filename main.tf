@@ -50,7 +50,7 @@ resource "aws_elasticache_replication_group" "main" {
   num_node_groups            = var.num_node_groups
   replicas_per_node_group    = var.replicas_per_node_group
   subnet_group_name          = aws_elasticache_subnet_group.main.name
-  security_group_ids         = aws_security_group.main.id
+  security_group_ids         = [ aws_security_group.main.id ]
   engine = "redis"
   engine_version = var.engine_version
   kms_key_id = var.kms_arn
