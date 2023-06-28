@@ -31,12 +31,12 @@ resource "aws_security_group" "main" {
   tags =  merge(var.tags, { Name = "${var.name}-${var.env}-sg" })
 }
 
-#resource "aws_elasticache_parameter_group" "main" {
-#  family       = "redis6.x"
-#  name         = "${var.name}-${var.env}-pg"
-#  description  = "${var.name}-${var.env}-pg"
-#  tags         = merge(var.tags, { Name = "${var.name}-${var.env}-pg" })
-#}
+resource "aws_elasticache_parameter_group" "main" {
+  family       = "redis6.x"
+  name         = "${var.name}-${var.env}-pg"
+  description  = "${var.name}-${var.env}-pg"
+  tags         = merge(var.tags, { Name = "${var.name}-${var.env}-pg" })
+}
 
 
 
@@ -45,7 +45,7 @@ resource "aws_elasticache_replication_group" "main" {
   description                = "${var.name}-${var.env}-elasticache"
   node_type                  = var.node_type
   port                       = 6379
-#  parameter_group_name       = aws_elasticache_parameter_group.main.name
+  parameter_group_name       = aws_elasticache_parameter_group.main.name
   automatic_failover_enabled = true
   num_node_groups            = var.num_node_groups
   replicas_per_node_group    = var.replicas_per_node_group
